@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+</head>
+<body>
+    <h1>Habit Tracker</h1>
+    <a href="{% url 'add_habit' %}">Add New Habit</a>
+    <ul>
+        {% for habit in habits %}
+            <li>
+                <h3>{{ habit.name }}</h3>
+                <p>{{ habit.description }}</p>
+                <a href="{% url 'track_progress' habit.id %}">Track Progress</a>
+                <ul>
+                    {% for progress in progress_data[habit] %}
+                        <li>{{ progress.date }} - {% if progress.completed %} Completed {% else %} Skipped {% endif %}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
